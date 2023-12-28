@@ -236,7 +236,8 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         Double[] coefficients = {1.,2.,3.,4.};
         MainFrame frame = new MainFrame(coefficients);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Задать действие, выполняемое при закрытии окна

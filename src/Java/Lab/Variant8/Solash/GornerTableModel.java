@@ -40,40 +40,33 @@ class GornerTableModel extends AbstractTableModel {
         double x = from + step * row; // Вычислить значение X как НАЧАЛО_ОТРЕЗКА + ШАГ*НОМЕР_СТРОКИ
 
         double result = 0.0;
-        for (int i = 0; i < coefficients.length; i++) {
-            result = result * x + coefficients[i];
+        for (Double coefficient : coefficients) {
+            result = result * x + coefficient;
         }
 
         boolean isFractionNotEven;
-        double fractionalPart = (result - Math.floor(result))*1000;
+        double fractionalPart = (result - Math.floor(result))*10;
         if(Math.abs(fractionalPart - Math.round(fractionalPart))<=0.1) fractionalPart = Math.round(fractionalPart);
         else fractionalPart = Math.floor(fractionalPart);
         if(fractionalPart != 0 && fractionalPart % 2 != 0) isFractionNotEven = true;
         else isFractionNotEven = false;
 
 
-
-        switch(col) {
-            case 0:
-                return x;
-            case 1:
-                return result;
-            case 2:
-                return isFractionNotEven;
-        }
-        return 0;
+        return switch (col) {
+            case 0 -> x;
+            case 1 -> result;
+            case 2 -> isFractionNotEven;
+            default -> 0;
+        };
     }
 
     public String getColumnName(int col) {
-        switch (col) {
-            case 0:
-                return "Значение X"; // Название 1-го столбца
-            case 1:
-                return "Значение многочлена"; // Название 2-го столбца
-            case 2:
-                return "«Дробная часть нечётная";
-        }
-        return null;
+        return switch (col) {
+            case 0 -> "Значение X"; // Название 1-го столбца
+            case 1 -> "Значение многочлена"; // Название 2-го столбца
+            case 2 -> "«Дробная часть нечётная";
+            default -> null;
+        };
     }
 
     public Class<?> getColumnClass(int col) { // И в 1-ом и во 2-ом столбце находятся значения типа Double
